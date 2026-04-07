@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ideias de Post — Psicóloga</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --creme: #F7F3EE;
+    --terracota: #C47B5A;
+    --terracota-dark: #A85F3E;
+    --verde-sage: #7A9E8E;
+    --marrom: #3D2B1F;
+    --marrom-suave: #6B4F3A;
+    --bege: #E8DDD3;
+    --branco: #FDFAF7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--creme);
+    color: var(--marrom);
+    min-height: 100vh;
+  }
+
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
+  header {
+    padding: 48px 24px 32px;
+    text-align: center;
+    border-bottom: 1px solid var(--bege);
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--terracota);
+    color: white;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 6vw, 38px);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--marrom);
+  }
+
+  header h1 em {
+    font-style: italic;
+    color: var(--terracota);
+  }
+
+  header p {
+    margin-top: 12px;
+    color: var(--marrom-suave);
+    font-size: 14px;
+    font-weight: 300;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  main {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--marrom-suave);
+  }
+
+  input, textarea, select {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--marrom);
+    background: var(--branco);
+    border: 1.5px solid var(--bege);
+    border-radius: 10px;
+    padding: 13px 16px;
+    transition: border-color 0.2s;
+    outline: none;
+    width: 100%;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--terracota);
+  }
+
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B4F3A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 38px;
+  }
+
+  .chips-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--marrom-suave);
+    margin-bottom: 7px;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    cursor: pointer;
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 1.5px solid var(--bege);
+    background: var(--branco);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--marrom-suave);
+    transition: all 0.18s;
+    user-select: none;
+  }
+
+  .chip:hover { border-color: var(--terracota); color: var(--terracota); }
+  .chip.active {
+    background: var(--terracota);
+    border-color: var(--terracota);
+    color: white;
+  }
+
+  .btn-gerar {
+    margin-top: 8px;
+    width: 100%;
+    padding: 16px;
+    background: var(--marrom);
+    color: var(--creme);
+    border: none;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-gerar:hover { background: var(--marrom-suave); }
+  .btn-gerar:active { transform: scale(0.98); }
+  .btn-gerar:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .loading {
+    display: none;
+    text-align: center;
+    padding: 48px 0;
+  }
+
+  .loading.visible { display: block; }
+
+  .dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--terracota);
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes pulse {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  .loading p {
+    font-size: 13px;
+    color: var(--marrom-suave);
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  .resultados { display: none; margin-top: 8px; }
+  .resultados.visible { display: block; }
+
+  .resultados-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .resultados-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .btn-novo {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--terracota);
+    background: none;
+    border: 1.5px solid var(--terracota);
+    border-radius: 20px;
+    padding: 5px 14px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.18s;
+  }
+  .btn-novo:hover { background: var(--terracota); color: white; }
+
+  .ideias-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ideia-card {
+    background: var(--branco);
+    border: 1.5px solid var(--bege);
+    border-radius: 14px;
+    padding: 18px 20px;
+    position: relative;
+    animation: slideUp 0.3s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .ideia-numero {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--terracota);
+    margin-bottom: 6px;
+  }
+
+  .ideia-texto {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--marrom);
+    padding-right: 28px;
+  }
+
+  .ideia-formato {
+    margin-top: 10px;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--verde-sage);
+    background: #EDF3F0;
+    border-radius: 20px;
+    padding: 3px 10px;
+  }
+
+  .btn-copiar {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--bege);
+    transition: color 0.2s;
+    padding: 4px;
+  }
+  .btn-copiar:hover { color: var(--terracota); }
+
+  .erro {
+    display: none;
+    background: #FFF0ED;
+    border: 1.5px solid #F0C4B8;
+    border-radius: 12px;
+    padding: 16px 18px;
+    font-size: 14px;
+    color: var(--terracota-dark);
+    margin-top: 16px;
+  }
+  .erro.visible { display: block; }
+
+  .rodape-cta {
+    margin-top: 36px;
+    background: var(--marrom);
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+    color: var(--creme);
+  }
+
+  .rodape-cta p {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.6;
+    opacity: 0.85;
+    margin-bottom: 14px;
+  }
+
+  .rodape-cta strong { font-weight: 500; opacity: 1; }
+
+  .rodape-cta a {
+    display: inline-block;
+    background: var(--terracota);
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 22px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .rodape-cta a:hover { background: var(--terracota-dark); }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header>
+  <div class="badge">Gerador de Ideias</div>
+  <h1>O que postar<br><em>essa semana?</em></h1>
+  <p>Responda algumas perguntas e receba ideias de post pensadas para o seu perfil.</p>
+</header>
+
+<main>
+
+  <div class="form-section" id="formSection">
+
+    <div class="field">
+      <label>Qual é a sua especialidade?</label>
+      <input type="text" id="especialidade" placeholder="Ex: ansiedade, luto, relacionamentos, TCC..." maxlength="100">
+    </div>
+
+    <div class="field">
+      <label>Para quem você atende?</label>
+      <input type="text" id="publico" placeholder="Ex: mulheres adultas, casais, adolescentes..." maxlength="100">
+    </div>
+
+    <div class="field">
+      <label>Como está seu humor essa semana?</label>
+      <select id="humor">
+        <option value="">Escolha uma opção</option>
+        <option value="inspirada">Me sinto inspirada e com energia</option>
+        <option value="corrida">Estou corrida, preciso de algo rápido</option>
+        <option value="reflexiva">Estou reflexiva, quero algo mais profundo</option>
+        <option value="travada">Estou travada, sem saber por onde começar</option>
+      </select>
+    </div>
+
+    <div>
+      <div class="chips-label">Que tipo de post você prefere?</div>
+      <div class="chips" id="formatos">
+        <div class="chip active" data-value="educativo">Educativo</div>
+        <div class="chip" data-value="pessoal">Pessoal</div>
+        <div class="chip" data-value="provocativo">Provocativo</div>
+        <div class="chip" data-value="leve">Leve / Humor</div>
+        <div class="chip" data-value="reflexivo">Reflexivo</div>
+      </div>
+    </div>
+
+    <button class="btn-gerar" id="btnGerar" onclick="gerarIdeias()">
+      Gerar minhas ideias →
+    </button>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <p>Criando ideias para o seu perfil...</p>
+  </div>
+
+  <div class="erro" id="erro"></div>
+
+  <div class="resultados" id="resultados">
+    <div class="resultados-header">
+      <h2>Suas ideias ✦</h2>
+      <button class="btn-novo" onclick="reiniciar()">Nova consulta</button>
+    </div>
+    <div class="ideias-lista" id="ideiaLista"></div>
+
+    <div class="rodape-cta">
+      <p>Quer transformar essas ideias em <strong>posts completos</strong> e aprender a usar o Instagram de forma estratégica?</p>
+      <!-- TROQUE O HREF PELO SEU LINK DE AGENDAMENTO -->
+      <a href="#">Conheça a supervisão →</a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => chip.classList.toggle('active'));
+  });
+
+  async function gerarIdeias() {
+    const especialidade = document.getElementById('especialidade').value.trim();
+    const publico = document.getElementById('publico').value.trim();
+    const humor = document.getElementById('humor').value;
+    const formatos = [...document.querySelectorAll('.chip.active')].map(c => c.dataset.value);
+
+    if (!especialidade || !publico || !humor) {
+      mostrarErro('Preencha todos os campos antes de continuar.');
+      return;
+    }
+
+    esconderErro();
+    mostrarLoading();
+
+    try {
+      const response = await fetch('/api/gerar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ especialidade, publico, humor, formatos })
+      });
+
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || 'Erro desconhecido');
+      }
+
+      const data = await response.json();
+      mostrarResultados(data.ideias);
+
+    } catch (err) {
+      esconderLoading();
+      mostrarErro('Algo deu errado. Tente novamente em instantes.');
+    }
+  }
+
+  function mostrarResultados(ideias) {
+    esconderLoading();
+    document.getElementById('formSection').style.display = 'none';
+
+    const lista = document.getElementById('ideiaLista');
+    lista.innerHTML = '';
+
+    ideias.forEach((item, i) => {
+      const card = document.createElement('div');
+      card.className = 'ideia-card';
+      card.style.animationDelay = `${i * 0.08}s`;
+      card.innerHTML = `
+        <button class="btn-copiar" title="Copiar ideia" onclick="copiar(this, \`${item.ideia.replace(/`/g, "'")}\`)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+          </svg>
+        </button>
+        <div class="ideia-numero">Ideia ${i + 1}</div>
+        <div class="ideia-texto">${item.ideia}</div>
+        <span class="ideia-formato">${item.formato}</span>
+      `;
+      lista.appendChild(card);
+    });
+
+    document.getElementById('resultados').classList.add('visible');
+  }
+
+  async function copiar(btn, texto) {
+    try {
+      await navigator.clipboard.writeText(texto);
+      btn.style.color = 'var(--verde-sage)';
+      setTimeout(() => btn.style.color = '', 1500);
+    } catch {}
+  }
+
+  function reiniciar() {
+    document.getElementById('resultados').classList.remove('visible');
+    document.getElementById('formSection').style.display = 'flex';
+    document.getElementById('ideiaLista').innerHTML = '';
+  }
+
+  function mostrarLoading() {
+    document.getElementById('btnGerar').disabled = true;
+    document.getElementById('formSection').style.opacity = '0.4';
+    document.getElementById('loading').classList.add('visible');
+  }
+
+  function esconderLoading() {
+    document.getElementById('btnGerar').disabled = false;
+    document.getElementById('formSection').style.opacity = '1';
+    document.getElementById('loading').classList.remove('visible');
+  }
+
+  function mostrarErro(msg) {
+    const el = document.getElementById('erro');
+    el.textContent = msg;
+    el.classList.add('visible');
+  }
+
+  function esconderErro() {
+    document.getElementById('erro').classList.remove('visible');
+  }
+</script>
+</body>
+</html>
